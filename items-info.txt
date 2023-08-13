@@ -1,0 +1,12 @@
+CONVENTION DRAPE 8’ HIGH                        ,$10            ,2
+SHOW DRAPE                                      ,$15            ,3
+AISLE STANCHION CHROME                          ,$22            ,1
+AISLE STANCHION PLASTIC WHITE                   ,$14            ,2
+TV MONITOR 60”                                  ,$375           ,5
+TV MONITOR 42”                                  ,$375           ,4
+200 WATT JBL SPEAKER                            ,$125           ,5
+PROFESSIONAL GRADE SOUND SYSTEM                 ,$1200          ,3
+VIDEO PROJECTOR HIGH RESOLUTION 12000 L         ,$1200          ,3
+PROJECTOR STAND                                 ,$250           ,2
+PROJECTION SCREEN 6’ X 8’                       ,$300           ,2
+PROJECTION SCREEN 9’ X 12’                      , $475          ,1
