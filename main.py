@@ -1,7 +1,10 @@
 from operations import *
+from read import *
+from write import *
 from datetime import datetime
 
-welcome_message()
-footer_component()
-rent()
+def main():
+    welcome_message()
+    options()
 
+main()
