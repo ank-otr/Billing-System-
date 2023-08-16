@@ -1,4 +1,7 @@
-from methods import *
+from operations import *
+from datetime import datetime
 
-header_component()
+welcome_message()
+footer_component()
+rent()
 
