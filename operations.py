@@ -51,7 +51,7 @@ def rent_item():
         print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")   
         show_item()
         print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")   
-        validation()
+        rent_validation()
         
 
 
@@ -65,7 +65,7 @@ def exit_program():
     print("Thank you for using our system")  
 
 
-def validation():
+def rent_validation():
     
     valid_id = int(input("Enter the id of the item you want to rent."))
     myDictionary = store_in_dictionary()
