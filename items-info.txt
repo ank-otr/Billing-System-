@@ -1,8 +1,8 @@
-TV MONITOR 60"                      ,SAMSUNG                      ,$375                      ,5
-TV MONITOR 42"                      ,SAMSUNG                      ,$350                      ,5
-200 WATT SPEAKER                    ,JBL                          ,$125                      ,8
-PROFESSIONAL SOUND SYSTEM           ,YAMAHA                       ,$1200                     ,3
-VIDEO PROJECTOR                     ,YOBEN                        ,$875                      ,6
-PROJECTOR STAND                     ,IKEA                         ,$250                      ,15
-PROJECTION SCREEN 6'x 4'            ,CRT                          ,$300                      ,10
-PROJECTION SCREEN 9'x 12'           ,CRT                          ,$480                      ,7
+TV MONITOR 60"                      ,SAMSUNG                      ,$375                      ,0,
+TV MONITOR 42"                      ,SAMSUNG                      ,$350                      ,0,
+200 WATT SPEAKER                    ,JBL                          ,$125                      ,4,
+PROFESSIONAL SOUND SYSTEM           ,YAMAHA                       ,$1200                     ,1,
+VIDEO PROJECTOR                     ,YOBEN                        ,$875                      ,4,
+PROJECTOR STAND                     ,IKEA                         ,$250                      ,11,
+PROJECTION SCREEN 6'x 4'            ,CRT                          ,$300                      ,3,
+PROJECTION SCREEN 9'x 12'           ,CRT                          ,$480                      ,9,
