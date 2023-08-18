@@ -20,13 +20,23 @@ def footer_component():
 
 def user_info():
     print("\n")
-   
     
     while True:
         try:
-            name_of_user = input("\t \t \t \t \t    Enter your name: ")
-            if not name_of_user.isalpha():
-                raise ValueError("Name can only contain alphabetic characters.")
+            full_name = input("\t \t \t \t \t    Enter your full name: ")
+            names = full_name.split()
+
+            if len(names) < 2:
+                raise ValueError("Please enter your full name in the format 'First [Middle] Last'.")
+
+            if not all(name.isalpha() for name in names):
+                raise ValueError("Names should only contain alphabetic characters.")
+                        
+            first_name = names[0]
+            last_name = names[-1]
+            middle_name = " ".join(names[1:-1])
+            
+            name_of_user = f"{first_name} {middle_name} {last_name}" if middle_name else f"{first_name} {last_name}"
             break
         except ValueError as e:
             print(e)
@@ -39,14 +49,15 @@ def user_info():
             break
         except ValueError as e:
             print(e)
-    
-    print("Thank you for your Name and Phone Number " + name_of_user.upper())
+    print("\n")
+    print("Thank you for providing your information, " + name_of_user.title())
     
     return name_of_user, phone_num_of_user
 
 def print_item_list():
     rent_more_item = True
     while rent_more_item == True:
+        print("\n")
         print("Given below are the list of item can be rented. ")
         print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")
         print("S.N. \t\t  Item Name     \t\t\t      Company Name  \t\t\t       Price \t\t\t             Quantity")
@@ -55,21 +66,21 @@ def print_item_list():
         print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")   
         rent_more_item = False    
 
-def rent_validation():
+def rent_item():
     myDictionary = store_in_dictionary()
     item_rented_by_user = []
-   
+    name_of_user, phone_num_of_user = user_info()
+    print_item_list()
     while True:
-        valid_id = input("Enter the id of the item you want to rent (or 'exit' to finish): ")
+        valid_id = input("Enter the id of the item you want to rent (or 'exit' to finish renting and print the bill): ")
             
         try:
             if valid_id.lower() == 'exit':
                 print("\n")
-                print("\t \t \t \t \t    #Enter you Name and Phone Number to Print your bill")
                 break
             
             valid_id = int(valid_id)
-            if valid_id < 0 or valid_id >= len(myDictionary):
+            if valid_id < 0 or valid_id > len(myDictionary):
                 print("Enter a correct or valid id.")
                 continue
             
@@ -80,14 +91,16 @@ def rent_validation():
 
                     if quantity <= 0 or quantity > get_quantity_of_selected_item:
                         print("The item's quantity you want to rent doesn't appear to be available in the store.")
+                        break
                     else:
-                        break  # Exit the quantity input loop if valid
+                        updated_quantity = int(get_quantity_of_selected_item) - int(quantity)
+                        myDictionary[valid_id][3] = str(updated_quantity)
+                        update_item_quantity(myDictionary)
+                        break  
                 except ValueError:
                     print("Invalid input. Please enter a valid integer.")
                     
-            updated_quantity = int(get_quantity_of_selected_item) - int(quantity)
-            myDictionary[valid_id][3] = str(updated_quantity)
-            update_item_quantity(myDictionary)
+            
             
             item_name = myDictionary[valid_id][0]
             user_selected_quantity = quantity
@@ -99,8 +112,12 @@ def rent_validation():
         except ValueError:
             print("Invalid input. Please enter a valid integer.")
 
+    print_bill(name_of_user,phone_num_of_user,item_rented_by_user)
+
+def print_bill(name_of_user,phone_num_of_user,item_rented_by_user):
     today_date_and_time = datetime.now()
-    name_of_user, phone_num_of_user = user_info()
+    formatted_date_and_time = today_date_and_time.strftime("%Y-%m-%d %H:%M")
+    
     print("\n")
     print("\t \t \t \t \t \t  Welcome to Event Equipment Rental Shop")
     print("\t \t \t \t \t \t             Kathmandu, Nepal")
@@ -110,7 +127,7 @@ def rent_validation():
     print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")
     print("Name of the customer:", str(name_of_user).upper())
     print("Contact number:", str(phone_num_of_user))
-    print("Date and time of renting:", str(today_date_and_time))
+    print("Date and time of renting:", formatted_date_and_time)
     print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")
     print("\t \t \t \t \t \t             Items Details")
     print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")
@@ -127,6 +144,8 @@ def rent_validation():
     print("# Duration of Rented Item is for 5 Days.")
     print("Note: In case of Delay, you will be Fined.")  
     print("\n")
+    write_bill_to_file(name_of_user, phone_num_of_user, formatted_date_and_time, item_rented_by_user, total)    
+
 def return_item():
     print("Thank you for returning")  
 
