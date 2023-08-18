@@ -50,7 +50,7 @@ def user_info():
         except ValueError as e:
             print(e)
     print("\n")
-    print("Thank you for providing your information, " + name_of_user.title())
+    
     
     return name_of_user, phone_num_of_user
 
@@ -70,6 +70,7 @@ def rent_item():
     myDictionary = store_in_dictionary()
     item_rented_by_user = []
     name_of_user, phone_num_of_user = user_info()
+    print("Thank you for providing your information, " + name_of_user.title())
     print_item_list()
     while True:
         valid_id = input("Enter the id of the item you want to rent (or 'exit' to finish renting and print the bill): ")
@@ -113,10 +114,11 @@ def rent_item():
             print("Invalid input. Please enter a valid integer.")
 
     print_bill(name_of_user,phone_num_of_user,item_rented_by_user)
-
+   
 def print_bill(name_of_user,phone_num_of_user,item_rented_by_user):
     today_date_and_time = datetime.now()
     formatted_date_and_time = today_date_and_time.strftime("%Y-%m-%d %H:%M")
+    rented_date = formatted_date_and_time
     
     print("\n")
     print("\t \t \t \t \t \t  Welcome to Event Equipment Rental Shop")
@@ -127,7 +129,7 @@ def print_bill(name_of_user,phone_num_of_user,item_rented_by_user):
     print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")
     print("Name of the customer:", str(name_of_user).upper())
     print("Contact number:", str(phone_num_of_user))
-    print("Date and time of renting:", formatted_date_and_time)
+    print("Date and time of renting:", rented_date)
     print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")
     print("\t \t \t \t \t \t             Items Details")
     print("------------------------------------------------------------------------------------------------------------------------------------------------------------------")
@@ -144,11 +146,52 @@ def print_bill(name_of_user,phone_num_of_user,item_rented_by_user):
     print("# Duration of Rented Item is for 5 Days.")
     print("Note: In case of Delay, you will be Fined.")  
     print("\n")
-    write_bill_to_file(name_of_user, phone_num_of_user, formatted_date_and_time, item_rented_by_user, total)    
+    write_bill_to_file(name_of_user, phone_num_of_user, rented_date, item_rented_by_user, total)    
+ 
+ 
+ 
+    
+    
+def get_rented_days():
+    days_rented = int(input("Enter the number of days you have rented items."))
+    return days_rented
+
+def calculate_fine(total, days_rented):
+    late_fee_per_day = 5
+    days_delayed = days_rented - 5
+    if days_delayed <= 0:
+        fine = 0
+    else:
+        fine = days_delayed * late_fee_per_day
+    total_with_fine = total + fine
+    return total_with_fine, fine
+
+
+       
 
 def return_item():
-    print("Thank you for returning")  
+    name_of_user, phone_num_of_user = user_info()
+    open_bill(name_of_user, phone_num_of_user)
+    total = extract_total_from_file(name_of_user, phone_num_of_user)
+    days_rented = get_rented_days()
+    total_with_fine, fine = calculate_fine(total, days_rented)  # Corrected the argument order
+    write_bill_to_file_after_return(name_of_user, phone_num_of_user, total_with_fine, fine)
+    print("\n")
+    try:
+        print("Do you want to print the updated bill?")
+        print_updated_bill = input("Enter 'Y' to Print or 'N' to skip: ")
 
+        if print_updated_bill.lower() == 'y':
+            print("Please Enter your name and phone number")
+            open_bill(name_of_user, phone_num_of_user)
+        else:
+            print("Item returned and bill updated.\n")
+    except Exception as e:
+        print("An error occurred:", str(e))
+
+    
+
+    
 def exit_program():
     print("Thank you for using our system")  
 

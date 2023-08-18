@@ -16,7 +16,9 @@ def main():
             
             continue
         elif option == '2':
-            print("Return Items option is under construction.")
+            print("\t \t \t \t \t           # You have Chosen Return option.")
+            return_item()
+            
         elif option == '3':
             print("Exiting the program.")
             break
