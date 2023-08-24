@@ -147,10 +147,6 @@ def print_bill(name_of_user,phone_num_of_user,item_rented_by_user):
     print("Note: In case of Delay, you will be Fined.")  
     print("\n")
     write_bill_to_file(name_of_user, phone_num_of_user, rented_date, item_rented_by_user, total)    
- 
- 
- 
-    
     
 def get_rented_days():
     days_rented = int(input("Enter the number of days you have rented items."))
@@ -166,15 +162,15 @@ def calculate_fine(total, days_rented):
     total_with_fine = total + fine
     return total_with_fine, fine
 
-
-       
-
 def return_item():
     name_of_user, phone_num_of_user = user_info()
     open_bill(name_of_user, phone_num_of_user)
     total = extract_total_from_file(name_of_user, phone_num_of_user)
     days_rented = get_rented_days()
     total_with_fine, fine = calculate_fine(total, days_rented)  # Corrected the argument order
+    returned_items = extract_returned_items_from_file(name_of_user, phone_num_of_user)  # Add this function
+    
+    update_inventory(returned_items) 
     write_bill_to_file_after_return(name_of_user, phone_num_of_user, total_with_fine, fine)
     print("\n")
     try:
@@ -189,6 +185,20 @@ def return_item():
     except Exception as e:
         print("An error occurred:", str(e))
 
+def update_inventory(returned_items):
+    myDictionary = store_in_dictionary()
+    for item_data in returned_items:
+        item_name = item_data[0]
+        returned_quantity = int(item_data[1])
+        
+        for item_id, item_info in myDictionary.items():
+            if item_info[0] == item_name:
+                current_quantity = int(item_info[3])
+                updated_quantity = current_quantity + returned_quantity
+                item_info[3] = str(updated_quantity)
+                break
+        
+    update_item_quantity(myDictionary)
     
 
     

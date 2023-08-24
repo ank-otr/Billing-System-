@@ -24,10 +24,11 @@ def write_bill_to_file(name_of_user, phone_num_of_user, rented_date, item_rented
         file.write("\t\t\t\t\t\t\t             Items Details\n")
         file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
 
-        file.write("Item Name \t\t\t\t\t       Quantity \t\t        Unit Price \t             Amount\n")
+        file.write("Item Name \t\t\t\t\t     Quantity \t\t             Unit Price \t\t\t\t               Amount\n")
         file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
         for i in item_rented_by_user:
-            file.write(f"{i[0]}\t\t\t   {i[1]}\t\t\t\t   {str(i[2])} ${i[3]}\n")
+            file.write(f"{i[0]}\t\t\t{i[1]}\t\t\t\t{i[2]}\t\t\t\t${i[3]}\n")
+
 
         file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
         file.write("\t\t\t\t\t\t\t\t\t\t\t\t        Total Amount: ${}\n".format(total))
