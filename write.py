@@ -42,3 +42,26 @@ def write_bill_to_file_after_return(name_of_user, phone_num_of_user, total_with_
             file.write("\t\t\t\t\t\t\t\t\t\t\t\t\t Grand Total: ${}\n".format(total_with_fine))
             file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
 
+def write_returned_items_to_file(name_of_user, phone_num_of_user, returned_items):
+    file_name = f"{name_of_user}_{phone_num_of_user}_returned.txt"
+    
+    with open(file_name, 'w') as file:
+        file.write("\n")
+        file.write(f"\t\t\t\t\t\t\t  Return Details\n")
+        file.write("\n")
+        file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+        file.write("\t\t\t\t\t\t\t             Customer Details\n")
+        file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+        file.write(f"Name of the customer: {name_of_user.upper()}\n")
+        file.write(f"Contact number: {phone_num_of_user}\n")
+        file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+        file.write("\t\t\t\t\t\t\t             Returned Items\n")
+        file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+
+        file.write("Item Name \t\t\t\t\t     Quantity\n")
+        file.write("------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+        for item_name, item_quantity in returned_items:
+            file.write(f"{item_name}\t\t\t{item_quantity}\n")
+
+    print("Returned items written to file:", file_name)
+    return file_name

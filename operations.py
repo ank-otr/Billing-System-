@@ -149,8 +149,16 @@ def print_bill(name_of_user,phone_num_of_user,item_rented_by_user):
     write_bill_to_file(name_of_user, phone_num_of_user, rented_date, item_rented_by_user, total)    
     
 def get_rented_days():
-    days_rented = int(input("Enter the number of days you have rented items."))
-    return days_rented
+    while True:
+        try:
+            days_rented = int(input("Enter the number of days you have rented items: "))
+            if days_rented >= 0:
+                return days_rented
+            else:
+                print("Please enter a non-negative value.")
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
+
 
 def calculate_fine(total, days_rented):
     late_fee_per_day = 5
@@ -167,18 +175,18 @@ def return_item():
     open_bill(name_of_user, phone_num_of_user)
     total = extract_total_from_file(name_of_user, phone_num_of_user)
     days_rented = get_rented_days()
-    total_with_fine, fine = calculate_fine(total, days_rented)  # Corrected the argument order
-    returned_items = extract_returned_items_from_file(name_of_user, phone_num_of_user)  # Add this function
+    total_with_fine, fine = calculate_fine(total, days_rented)  
+    returned_items = extract_returned_items_from_file(name_of_user, phone_num_of_user)  
     
     update_inventory(returned_items) 
     write_bill_to_file_after_return(name_of_user, phone_num_of_user, total_with_fine, fine)
+    write_returned_items_to_file(name_of_user, phone_num_of_user, returned_items)
     print("\n")
     try:
         print("Do you want to print the updated bill?")
         print_updated_bill = input("Enter 'Y' to Print or 'N' to skip: ")
 
         if print_updated_bill.lower() == 'y':
-            print("Please Enter your name and phone number")
             open_bill(name_of_user, phone_num_of_user)
         else:
             print("Item returned and bill updated.\n")

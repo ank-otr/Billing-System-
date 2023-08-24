@@ -52,10 +52,10 @@ def extract_returned_items_from_file(name_of_user, phone_num_of_user):
                 if "Items Details" in line:
                     found_items_section = True
                 elif found_items_section and not line.strip():
-                    break  # Stop processing when reaching an empty line
+                    break  
                 elif found_items_section:
                     item_data = line.strip().split('\t\t\t')
-                    if len(item_data) >= 4 and item_data[1]:  # Ensure there are at least 4 elements and non-empty quantity
+                    if len(item_data) >= 4 and item_data[1]:  
                         item_name = item_data[0]
                         item_quantity = item_data[1].strip()
                         returned_items.append((item_name, item_quantity))

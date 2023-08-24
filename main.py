@@ -20,9 +20,13 @@ def main():
             return_item()
             
         elif option == '3':
-            print("Exiting the program.")
-            break
+            confirm = input("Are you sure you want to exit? (yes/no): ")
+            if confirm.lower() == 'yes':
+                print("Exiting the program.")
+                break
+            else:
+                print("Continuing the program.")
         else:
-            print("Invalid option. Please choose a valid option.")    
+            print("Invalid option. Please select 1, 2, or 3.")   
 
 main()
